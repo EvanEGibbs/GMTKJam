@@ -24,13 +24,13 @@ public class PlayerInput : MonoBehaviour {
 		if (Input.GetButtonUp("Jump")) {
 			player.OnJumpInputUp();
 		}
-		//while run button down
-		if (Input.GetButton("Run")) {
-			player.OnRunInputDown();
+		//while shield button down
+		if (Input.GetButton("Shield")) {
+			player.OnShieldInputDown();
 		}
 		//jump button up
-		if (Input.GetButtonUp("Run")) {
-			player.OnRunInputUp();
+		if (Input.GetButtonUp("Shield")) {
+			player.OnShieldInputUp();
 		}
 	}
 

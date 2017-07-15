@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
 	public float decelerationTimeAirborne = 0f;
 	public float decelerationTimeGrounded = 0f;
 	public float moveSpeed = 6;
-	public float runSpeedMultiplier = 1.5f;
+	public float shieldSpeedModifier = 1.5f;
 
 	public Vector2 wallJumpClimb;
 	public Vector2 wallJumpOff;
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
 	Controller2D controller;
 	public Vector2 directionalInput;
 
+	bool shieldButtonDown = false;
 	float initialMoveSpeed;
 	bool wallSliding;
 	int wallDirX;
@@ -53,6 +54,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update() {
+
+		if (!shieldButtonDown && controller.collisions.below) {
+			moveSpeed = initialMoveSpeed;
+		}
 
 		CalculateVelocity();
 		HandleWallSliding();
@@ -117,13 +122,12 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void OnRunInputDown() {
-		if (controller.collisions.below) {
-			moveSpeed = initialMoveSpeed * runSpeedMultiplier;
-		}
+	public void OnShieldInputDown() {
+		shieldButtonDown = true;
+		moveSpeed = initialMoveSpeed * shieldSpeedModifier;
 	}
-	public void OnRunInputUp() {
-		moveSpeed = initialMoveSpeed;
+	public void OnShieldInputUp() {
+		shieldButtonDown = false;
 	}
 
 	private void CalculateVelocity() {
@@ -142,6 +146,7 @@ public class Player : MonoBehaviour {
 		wallDirX = (controller.collisions.left) ? -1 : 1;
 		wallSliding = false;
 		if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below) {
+			moveSpeed = initialMoveSpeed * shieldSpeedModifier;
 			wallSliding = true;
 			controller.collisions.fallingThroughPlatform = null; //if fell through a platform then started a wall slide, can jump on the platform again.
 
