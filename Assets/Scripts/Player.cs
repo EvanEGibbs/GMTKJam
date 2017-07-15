@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
 	public GameObject topShield;
 	public GameObject bottomShield;
 	public GameObject currentCheckpoint;
+	public BlackMask blackMask;
 
 	BoxCollider2D sideShieldCollider;
 	BoxCollider2D topShieldCollider;
@@ -325,5 +326,14 @@ public class Player : MonoBehaviour {
 	}
 	public void DeathScene() {
 		playerControl = false;
+		playerAnimator.SetBool("Respawning", true);
+	}
+	public void Respawn() {
+		playerAnimator.SetBool("Respawning", false);
+		transform.position = currentCheckpoint.transform.position;
+		playerControl = true;
+	}
+	public void CallBlackMask() {
+		blackMask.MoveMask();
 	}
 }

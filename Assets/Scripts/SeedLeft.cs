@@ -25,8 +25,8 @@ public class SeedLeft : MonoBehaviour {
 		}
 		if (collision.tag == "Player") {
 			if (!harmless) {
-
-				//DestroyThis();
+				collision.GetComponent<Player>().DeathScene();
+				DestroyThis();
 			}
 		}
 	}
