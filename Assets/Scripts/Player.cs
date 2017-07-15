@@ -36,12 +36,16 @@ public class Player : MonoBehaviour {
 
 	bool shieldButtonDown = false;
 	float initialMoveSpeed;
+	float initialXScale;
 	bool wallSliding;
 	int wallDirX;
 	bool jumpInputDown;
+	bool facingRight = true;
+	Animator playerAnimator;
 
 	void Start () {
 		controller = GetComponent<Controller2D>();
+		playerAnimator = GetComponentInChildren<Animator>();
 
 		//explanation of the following math: https://www.youtube.com/watch?v=PlT44xr0iW0&t=9s at around 6 minutes
 		//can move the following code to update to mess with parameters in real time for when getting the right gravity, jumpping, etc.
@@ -51,6 +55,7 @@ public class Player : MonoBehaviour {
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 		//Debug.Log("Gravity " + gravity + " jump velocity: " + maxJumpVelocity);
 		initialMoveSpeed = moveSpeed;
+		initialXScale = transform.localScale.x;
 	}
 
 	void Update() {
@@ -71,7 +76,32 @@ public class Player : MonoBehaviour {
 				velocity.y = 0;
 			}
 		}
+
+		UpdateAnimations();
+
 		jumpInputDown = false; //so the jumpInputDown variable is only set to be true for one frame when the jump button is pressed
+	}
+
+	void UpdateAnimations() {
+		playerAnimator.SetBool("grounded", controller.collisions.below);
+		playerAnimator.SetBool("movingX", (Mathf.Abs(velocity.x) > 0.1) ? true : false);
+		playerAnimator.SetBool("positiveY", (velocity.y > 0.1) ? true : false);
+		playerAnimator.SetBool("negativeY", (velocity.y < 0.1) ? true : false);
+		playerAnimator.SetBool("wallSlide", wallSliding);
+		playerAnimator.SetBool("usingShield", (moveSpeed == initialMoveSpeed) ? false : true);
+
+		if (controller.collisions.below) {
+			if (directionalInput.x == 1) {
+				facingRight = true;
+			} else if (directionalInput.x == -1) {
+				facingRight = false;
+			}
+		}
+		if (facingRight) {
+			transform.localScale = new Vector3(initialXScale, transform.localScale.y, transform.localScale.z);
+		} else {
+			transform.localScale = new Vector3(initialXScale * -1, transform.localScale.y, transform.localScale.z);
+		}
 	}
 
 	//BUTTON INPUTS
@@ -89,6 +119,7 @@ public class Player : MonoBehaviour {
 					timeToWallUnstick = 0;
 					velocity.x = -wallDirX * wallJumpClimb.x;
 					velocity.y = wallJumpClimb.y;
+					
 				} else if (directionalInput.x == 0) { //jump off of wall
 					timeToWallUnstick = 0;
 					velocity.x = -wallDirX * wallJumpOff.x;
@@ -98,6 +129,12 @@ public class Player : MonoBehaviour {
 					velocity.x = -wallDirX * wallLeap.x;
 					velocity.y = wallLeap.y;
 				}
+				if (wallDirX == -1) {
+					facingRight = true;
+				} else {
+					facingRight = false;
+				}
+				playerAnimator.SetTrigger("jump");
 			}
 
 			if (controller.collisions.below) {
@@ -106,12 +143,13 @@ public class Player : MonoBehaviour {
 					if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x)) { //not jumping against max slope
 						velocity.y = maxJumpVelocity * controller.collisions.slopeNormal.y;
 						velocity.x = maxJumpVelocity * controller.collisions.slopeNormal.x;
-
+						playerAnimator.SetTrigger("jump");
 					}
 				}
 				//jump off of ground normally if not going to jump down a through platform
 				else if (!controller.collisions.readyToFallThrough) {
 					velocity.y = maxJumpVelocity;
+					playerAnimator.SetTrigger("jump");
 				}
 			}
 		}
@@ -149,6 +187,13 @@ public class Player : MonoBehaviour {
 			moveSpeed = initialMoveSpeed * shieldSpeedModifier;
 			wallSliding = true;
 			controller.collisions.fallingThroughPlatform = null; //if fell through a platform then started a wall slide, can jump on the platform again.
+			if (timeToWallUnstick > 0) {
+				if (controller.collisions.left) {
+					facingRight = true;
+				} else {
+					facingRight = false;
+				}
+			}
 
 			if (velocity.y < -wallSlideSpeedMax) {
 				velocity.y = -wallSlideSpeedMax;
