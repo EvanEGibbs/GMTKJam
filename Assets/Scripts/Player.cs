@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
 	public float decelerationTimeGrounded = 0f;
 	public float moveSpeed = 6;
 	public float shieldSpeedModifier = 1.5f;
+	public float floatMovementModifier = 0.4f;
+	public float shieldSlamMovement = -55f;
 
 	public Vector2 wallJumpClimb;
 	public Vector2 wallJumpOff;
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour {
 	bool jumpInputDown;
 	bool facingRight = true;
 	Animator playerAnimator;
+	bool floating = false;
+	bool shieldSlam = false;
 
 	void Start () {
 		controller = GetComponent<Controller2D>();
@@ -56,12 +60,23 @@ public class Player : MonoBehaviour {
 		//Debug.Log("Gravity " + gravity + " jump velocity: " + maxJumpVelocity);
 		initialMoveSpeed = moveSpeed;
 		initialXScale = transform.localScale.x;
+		print(gravity);
 	}
 
 	void Update() {
 
 		if (!shieldButtonDown && controller.collisions.below) {
 			moveSpeed = initialMoveSpeed;
+		}
+		if (controller.collisions.below) {
+			floating = false;
+			shieldSlam = false;
+		}
+		if (directionalInput.y == -1 && !controller.collisions.below && !wallSliding && !floating) {
+			shieldSlam = true;
+		}
+		if (floating) {
+			shieldSlam = false;
 		}
 
 		CalculateVelocity();
@@ -89,8 +104,10 @@ public class Player : MonoBehaviour {
 		playerAnimator.SetBool("negativeY", (velocity.y < 0.1) ? true : false);
 		playerAnimator.SetBool("wallSlide", wallSliding);
 		playerAnimator.SetBool("usingShield", (moveSpeed == initialMoveSpeed) ? false : true);
+		playerAnimator.SetBool("shieldFloat", floating);
+		playerAnimator.SetBool("shieldBounce", shieldSlam);
 
-		if (controller.collisions.below) {
+		if (controller.collisions.below || floating) {
 			if (directionalInput.x == 1) {
 				facingRight = true;
 			} else if (directionalInput.x == -1) {
@@ -153,11 +170,15 @@ public class Player : MonoBehaviour {
 				}
 			}
 		}
+		if (!controller.collisions.below && !wallSliding) {
+			floating = true;
+		}
 	}
 	public void OnJumpInputUp() { //for variable jump height
 		if (velocity.y > minJumpVelocity) {
 			velocity.y = minJumpVelocity;
 		}
+		floating = false;
 	}
 
 	public void OnShieldInputDown() {
@@ -178,6 +199,12 @@ public class Player : MonoBehaviour {
 		}
 		
 		velocity.y += gravity * Time.deltaTime;
+		if (floating) {
+			velocity.y *= floatMovementModifier;
+		}
+		if (shieldSlam) {
+			velocity.y = shieldSlamMovement;
+		}
 	}
 
 	private void HandleWallSliding() {
@@ -194,6 +221,8 @@ public class Player : MonoBehaviour {
 					facingRight = false;
 				}
 			}
+			floating = false;
+			shieldSlam = false;
 
 			if (velocity.y < -wallSlideSpeedMax) {
 				velocity.y = -wallSlideSpeedMax;
