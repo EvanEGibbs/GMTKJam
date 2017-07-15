@@ -22,6 +22,11 @@ public class Player : MonoBehaviour {
 	public Vector2 wallJumpOff;
 	public Vector2 wallLeap;
 
+	public GameObject sideShield;
+	public GameObject topShield;
+	public GameObject bottomShield;
+	public GameObject currentCheckpoint;
+
 	public float wallSlideSpeedMax = 3;
 	public float wallStickTime = .25f;
 
@@ -36,6 +41,7 @@ public class Player : MonoBehaviour {
 	Controller2D controller;
 	public Vector2 directionalInput;
 
+	List<GameObject> allCheckpoints = new List<GameObject>();
 	bool shieldButtonDown = false;
 	float initialMoveSpeed;
 	float initialXScale;
@@ -60,27 +66,24 @@ public class Player : MonoBehaviour {
 		//Debug.Log("Gravity " + gravity + " jump velocity: " + maxJumpVelocity);
 		initialMoveSpeed = moveSpeed;
 		initialXScale = transform.localScale.x;
-		print(gravity);
+
+		sideShield.SetActive(false);
+		topShield.SetActive(false);
+		bottomShield.SetActive(false);
+
+		foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("CheckPoint")) {
+			allCheckpoints.Add(checkpoint);
+		}
+
+		print(allCheckpoints);
 	}
 
 	void Update() {
 
-		if (!shieldButtonDown && controller.collisions.below) {
-			moveSpeed = initialMoveSpeed;
-		}
-		if (controller.collisions.below) {
-			floating = false;
-			shieldSlam = false;
-		}
-		if (directionalInput.y == -1 && !controller.collisions.below && !wallSliding && !floating) {
-			shieldSlam = true;
-		}
-		if (floating) {
-			shieldSlam = false;
-		}
-
+		ShieldMovementChecks();
 		CalculateVelocity();
 		HandleWallSliding();
+		ShieldActivations();
 
 		controller.Move(velocity * Time.deltaTime, jumpInputDown, directionalInput);
 
@@ -95,6 +98,61 @@ public class Player : MonoBehaviour {
 		UpdateAnimations();
 
 		jumpInputDown = false; //so the jumpInputDown variable is only set to be true for one frame when the jump button is pressed
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision) {
+		if (collision.tag == "CheckPoint") {
+			foreach (GameObject checkpoint in allCheckpoints) {
+				CheckPoint checkPointClass = checkpoint.GetComponent<CheckPoint>();
+				if (checkpoint.transform.position != collision.transform.position) {
+					checkPointClass.LowerFlag();
+					print("Thing");
+				} else {
+					checkPointClass.RaiseFlag();
+					currentCheckpoint = checkpoint;
+				}
+			}
+		}
+	}
+
+	private void ShieldActivations() {
+		if (moveSpeed == initialMoveSpeed) {
+			sideShield.SetActive(false);
+		}
+		else if (floating || shieldSlam) {
+			sideShield.SetActive(false);
+		}
+		else{
+			sideShield.SetActive(true);
+		}
+
+		if (floating) {
+			topShield.SetActive(true);
+		} else {
+			topShield.SetActive(false);
+		}
+
+		if (shieldSlam) {
+			bottomShield.SetActive(true);
+		} else {
+			bottomShield.SetActive(false);
+		}
+	}
+
+	private void ShieldMovementChecks() {
+		if (!shieldButtonDown && controller.collisions.below) {
+			moveSpeed = initialMoveSpeed;
+		}
+		if (controller.collisions.below) {
+			floating = false;
+			shieldSlam = false;
+		}
+		if (directionalInput.y == -1 && !controller.collisions.below && !wallSliding && !floating) {
+			shieldSlam = true;
+		}
+		if (floating) {
+			shieldSlam = false;
+		}
 	}
 
 	void UpdateAnimations() {
