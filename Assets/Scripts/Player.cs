@@ -27,8 +27,13 @@ public class Player : MonoBehaviour {
 	public GameObject bottomShield;
 	public GameObject currentCheckpoint;
 
+	BoxCollider2D sideShieldCollider;
+	BoxCollider2D topShieldCollider;
+	BoxCollider2D bottomShieldCollider;
+
 	public float wallSlideSpeedMax = 3;
 	public float wallStickTime = .25f;
+	public float shieldSlamDelay = 0.2f;
 
 	float timeToWallUnstick;
 	float gravity; //calculated via jump height and timeToJumpApex
@@ -52,6 +57,8 @@ public class Player : MonoBehaviour {
 	Animator playerAnimator;
 	bool floating = false;
 	bool shieldSlam = false;
+	float shieldSlamTimer = 0;
+	bool playerControl = true;
 
 	void Start () {
 		controller = GetComponent<Controller2D>();
@@ -67,37 +74,41 @@ public class Player : MonoBehaviour {
 		initialMoveSpeed = moveSpeed;
 		initialXScale = transform.localScale.x;
 
-		sideShield.SetActive(false);
-		topShield.SetActive(false);
-		bottomShield.SetActive(false);
+		sideShieldCollider = sideShield.GetComponent<BoxCollider2D>();
+		topShieldCollider = topShield.GetComponent<BoxCollider2D>();
+		bottomShieldCollider = bottomShield.GetComponent<BoxCollider2D>();
+
+		sideShieldCollider.enabled = false;
+		topShieldCollider.enabled = false;
+		bottomShieldCollider.enabled = false;
 
 		foreach (GameObject checkpoint in GameObject.FindGameObjectsWithTag("CheckPoint")) {
 			allCheckpoints.Add(checkpoint);
 		}
-
-		print(allCheckpoints);
 	}
 
 	void Update() {
 
-		ShieldMovementChecks();
-		CalculateVelocity();
-		HandleWallSliding();
-		ShieldActivations();
+		if (playerControl) {
+			ShieldMovementChecks();
+			CalculateVelocity();
+			HandleWallSliding();
+			ShieldActivations();
 
-		controller.Move(velocity * Time.deltaTime, jumpInputDown, directionalInput);
+			controller.Move(velocity * Time.deltaTime, jumpInputDown, directionalInput);
 
-		if (controller.collisions.above || controller.collisions.below) {
-			if (controller.collisions.slidingDownMaxSlope) { //sliding down maximum slope
-				velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
-			} else { //reset velocity if hiting a block from above, or landing on one from below
-				velocity.y = 0;
+			if (controller.collisions.above || controller.collisions.below) {
+				if (controller.collisions.slidingDownMaxSlope) { //sliding down maximum slope
+					velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
+				} else { //reset velocity if hiting a block from above, or landing on one from below
+					velocity.y = 0;
+				}
 			}
+
+			UpdateAnimations();
+
+			jumpInputDown = false; //so the jumpInputDown variable is only set to be true for one frame when the jump button is pressed
 		}
-
-		UpdateAnimations();
-
-		jumpInputDown = false; //so the jumpInputDown variable is only set to be true for one frame when the jump button is pressed
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
@@ -114,28 +125,34 @@ public class Player : MonoBehaviour {
 			}
 		}
 	}
+	private void OnTriggerStay2D(Collider2D collision) {
+		if (collision.tag == "Through") {
+			print("It's happening");
+			shieldSlamTimer = .2f;
+		}
+	}
 
 	private void ShieldActivations() {
 		if (moveSpeed == initialMoveSpeed) {
-			sideShield.SetActive(false);
+			sideShieldCollider.enabled = false;
 		}
 		else if (floating || shieldSlam) {
-			sideShield.SetActive(false);
+			sideShieldCollider.enabled = false;
 		}
 		else{
-			sideShield.SetActive(true);
+			sideShieldCollider.enabled = true;
 		}
 
 		if (floating) {
-			topShield.SetActive(true);
+			topShieldCollider.enabled = true;
 		} else {
-			topShield.SetActive(false);
+			topShieldCollider.enabled = false;
 		}
 
 		if (shieldSlam) {
-			bottomShield.SetActive(true);
+			bottomShieldCollider.enabled = true;
 		} else {
-			bottomShield.SetActive(false);
+			bottomShieldCollider.enabled = false;
 		}
 	}
 
@@ -148,11 +165,16 @@ public class Player : MonoBehaviour {
 			shieldSlam = false;
 		}
 		if (directionalInput.y == -1 && !controller.collisions.below && !wallSliding && !floating) {
-			shieldSlam = true;
+			if (shieldSlamTimer <= 0) {
+				shieldSlam = true;
+			} else {
+				shieldSlam = false;
+			}
 		}
 		if (floating) {
 			shieldSlam = false;
 		}
+		shieldSlamTimer -= Time.deltaTime;
 	}
 
 	void UpdateAnimations() {
@@ -186,6 +208,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void OnJumpInputDown() { //from playerInput class
+		shieldSlamTimer = .2f;
 		if (!controller.collisions.above) { //if there's nothing directly above you, you can jump
 			jumpInputDown = true;
 			//wall jumping
@@ -299,5 +322,8 @@ public class Player : MonoBehaviour {
 				timeToWallUnstick = wallStickTime;
 			}
 		}
+	}
+	public void DeathScene() {
+		playerControl = false;
 	}
 }
