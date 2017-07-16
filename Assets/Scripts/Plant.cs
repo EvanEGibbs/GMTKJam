@@ -5,6 +5,7 @@ using UnityEngine;
 public class Plant : MonoBehaviour {
 
 	public float[] shotIntervals;
+	public float offset = 0;
 	public Seed seed;
 
 	Animator plantAnimator;
@@ -16,13 +17,17 @@ public class Plant : MonoBehaviour {
 	}
 
 	void Update () {
-		timer += Time.deltaTime;
-		if (timer >= shotIntervals[currentShot]) {
-			Shoot();
-			timer = 0;
-			currentShot += 1;
-			if (currentShot > shotIntervals.Length - 1) {
-				currentShot = 0;
+		if (offset > 0) {
+			offset -= Time.deltaTime;
+		} else {
+			timer += Time.deltaTime;
+			if (timer >= shotIntervals[currentShot]) {
+				Shoot();
+				timer = 0;
+				currentShot += 1;
+				if (currentShot > shotIntervals.Length - 1) {
+					currentShot = 0;
+				}
 			}
 		}
 	}
