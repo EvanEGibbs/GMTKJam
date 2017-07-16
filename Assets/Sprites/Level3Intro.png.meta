@@ -1,0 +1,532 @@
+fileFormatVersion: 2
+guid: 7fc8c91ce9503cb4a870fec942f5f2dc
+timeCreated: 1500243701
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Level3Intro_0
+    21300002: Level3Intro_1
+    21300004: Level3Intro_2
+    21300006: Level3Intro_3
+    21300008: Level3Intro_4
+    21300010: Level3Intro_5
+    21300012: Level3Intro_6
+    21300014: Level3Intro_7
+    21300016: Level3Intro_8
+    21300018: Level3Intro_9
+    21300020: Level3Intro_10
+    21300022: Level3Intro_11
+    21300024: Level3Intro_12
+    21300026: Level3Intro_13
+    21300028: Level3Intro_14
+    21300030: Level3Intro_15
+    21300032: Level3Intro_16
+    21300034: Level3Intro_17
+    21300036: Level3Intro_18
+    21300038: Level3Intro_19
+    21300040: Level3Intro_20
+    21300042: Level3Intro_21
+    21300044: Level3Intro_22
+    21300046: Level3Intro_23
+    21300048: Level3Intro_24
+    21300050: Level3Intro_25
+    21300052: Level3Intro_26
+    21300054: Level3Intro_27
+    21300056: Level3Intro_28
+    21300058: Level3Intro_29
+    21300060: Level3Intro_30
+    21300062: Level3Intro_31
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Level3Intro_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1272
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_1
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1272
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_2
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1272
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_3
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1272
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_4
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1272
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1060
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_6
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1060
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_7
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1060
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_8
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1060
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_9
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 1060
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 848
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_11
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 848
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_12
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 848
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_13
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 848
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_14
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 848
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 636
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_16
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 636
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_17
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 636
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_18
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 636
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_19
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 636
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 424
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_21
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 424
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_22
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 424
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_23
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 424
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_24
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 424
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 212
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_26
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 212
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_27
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 212
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_28
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 212
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_29
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 212
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Level3Intro_31
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 0
+        width: 390
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
