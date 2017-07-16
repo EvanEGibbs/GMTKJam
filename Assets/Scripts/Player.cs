@@ -58,7 +58,8 @@ public class Player : MonoBehaviour {
 	bool facingRight = true;
 	Animator playerAnimator;
 	bool floating = false;
-	bool shieldSlam = false;
+	[HideInInspector]
+	public bool shieldSlam = false;
 	float shieldSlamTimer = 0;
 	bool playerControl = true;
 
@@ -119,7 +120,6 @@ public class Player : MonoBehaviour {
 				CheckPoint checkPointClass = checkpoint.GetComponent<CheckPoint>();
 				if (checkpoint.transform.position != collision.transform.position) {
 					checkPointClass.LowerFlag();
-					print("Thing");
 				} else {
 					checkPointClass.RaiseFlag();
 					currentCheckpoint = checkpoint;
@@ -129,7 +129,6 @@ public class Player : MonoBehaviour {
 	}
 	private void OnTriggerStay2D(Collider2D collision) {
 		if (collision.tag == "Through") {
-			print("It's happening");
 			shieldSlamTimer = .2f;
 		}
 	}
@@ -337,6 +336,7 @@ public class Player : MonoBehaviour {
 	}
 	public void Respawn() {
 		playerAnimator.SetBool("Respawning", false);
+		facingRight = true;
 		transform.position = currentCheckpoint.transform.position;
 		playerControl = true;
 	}

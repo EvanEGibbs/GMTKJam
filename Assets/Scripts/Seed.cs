@@ -21,8 +21,10 @@ public class Seed : MonoBehaviour {
 		}
 		else if (collision.tag == "Player") {
 			if (!harmless) {
-				collision.GetComponent<Player>().DeathScene();
-				DestroyThis();
+				if (!collision.GetComponent<Player>().shieldSlam) {
+					collision.GetComponent<Player>().DeathScene();
+					DestroyThis();
+				}
 			}
 		}
 	}
