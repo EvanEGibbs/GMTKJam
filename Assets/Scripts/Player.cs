@@ -35,6 +35,7 @@ public class Player : MonoBehaviour {
 	public float wallSlideSpeedMax = 3;
 	public float wallStickTime = .25f;
 	public float shieldSlamDelay = 0.2f;
+	public float superJumpMultiplier = 1.2f;
 
 	float timeToWallUnstick;
 	float gravity; //calculated via jump height and timeToJumpApex
@@ -255,6 +256,12 @@ public class Player : MonoBehaviour {
 		if (!controller.collisions.below && !wallSliding) {
 			floating = true;
 		}
+	}
+	public void SuperJump() {
+		shieldSlam = false;
+		shieldSlamTimer = .3f;
+		velocity.y = maxJumpVelocity * superJumpMultiplier;
+		playerAnimator.SetTrigger("jump");
 	}
 	public void OnJumpInputUp() { //for variable jump height
 		if (velocity.y > minJumpVelocity) {

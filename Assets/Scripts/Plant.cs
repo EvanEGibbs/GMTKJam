@@ -5,6 +5,7 @@ using UnityEngine;
 public class Plant : MonoBehaviour {
 
 	public float[] shotIntervals;
+	public Seed seed;
 
 	Animator plantAnimator;
 	int currentShot = 0;
@@ -27,5 +28,6 @@ public class Plant : MonoBehaviour {
 	}
 	void Shoot() {
 		plantAnimator.SetTrigger("Shoot");
+		GameObject.Instantiate(seed, transform);
 	}
 }
