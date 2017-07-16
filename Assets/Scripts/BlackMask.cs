@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BlackMask : MonoBehaviour {
 
+	public string levelName;
 	Animator animator;
 
 	void Start () {
@@ -18,7 +19,7 @@ public class BlackMask : MonoBehaviour {
 	public void ExitLevel() {
 		animator.SetTrigger("Exit");
 	}
-	public void LoadLevel(string levelName) {
+	public void LoadLevel() {
 		SceneManager.LoadScene(levelName);
 	}
 }
