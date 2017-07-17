@@ -24,6 +24,9 @@ public class PlayerInput : MonoBehaviour {
 		if (Input.GetButtonUp("Jump")) {
 			player.OnJumpInputUp();
 		}
+		//if (Input.GetButtonDown("Shield")) {
+		//	player.OnShieldInputPushed();
+		//}
 		//while shield button down
 		if (Input.GetButton("Shield")) {
 			player.OnShieldInputDown();

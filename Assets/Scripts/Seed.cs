@@ -23,6 +23,7 @@ public class Seed : MonoBehaviour {
 			if (collision.tag == "Through" || collision.tag == "obstacle") {
 				DestroyThis();
 			} else if (collision.tag == "Shield") {
+				collision.GetComponentInParent<Player>().BlockSound();
 				harmless = true;
 				DestroyThis();
 			} else if (collision.tag == "ShieldBottom") {

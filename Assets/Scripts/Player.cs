@@ -63,6 +63,19 @@ public class Player : MonoBehaviour {
 	float shieldSlamTimer = 0;
 	bool playerControl = true;
 
+	float lastMoveSpeed;
+	bool lastGrounded = true;
+
+	public AudioClip footstep1;
+	public AudioClip footstep2;
+	public AudioClip drawShield;
+	public AudioClip shieldBlock;
+	public AudioClip jump;
+	public AudioClip superJump;
+	public AudioClip land;
+	public AudioClip death;
+	public AudioClip flag;
+
 	void Start () {
 		controller = GetComponent<Controller2D>();
 		playerAnimator = GetComponentInChildren<Animator>();
@@ -111,6 +124,16 @@ public class Player : MonoBehaviour {
 			UpdateAnimations();
 
 			jumpInputDown = false; //so the jumpInputDown variable is only set to be true for one frame when the jump button is pressed
+			if (lastMoveSpeed != moveSpeed && moveSpeed != initialMoveSpeed) {
+				AudioSource.PlayClipAtPoint(drawShield, transform.position);
+			}
+			lastMoveSpeed = moveSpeed;
+			if (controller.collisions.below) {
+				if (controller.collisions.below != lastGrounded) {
+					AudioSource.PlayClipAtPoint(land, transform.position);
+				}
+			}
+			lastGrounded = controller.collisions.below;
 		}
 	}
 
@@ -121,6 +144,9 @@ public class Player : MonoBehaviour {
 				if (checkpoint.transform.position != collision.transform.position) {
 					checkPointClass.LowerFlag();
 				} else {
+					if (checkpoint.transform != currentCheckpoint.transform) {
+						AudioSource.PlayClipAtPoint(flag, transform.position);
+					}
 					checkPointClass.RaiseFlag();
 					currentCheckpoint = checkpoint;
 				}
@@ -234,6 +260,7 @@ public class Player : MonoBehaviour {
 					facingRight = false;
 				}
 				playerAnimator.SetTrigger("jump");
+				AudioSource.PlayClipAtPoint(jump, transform.position);
 			}
 
 			if (controller.collisions.below) {
@@ -249,10 +276,14 @@ public class Player : MonoBehaviour {
 				else if (!controller.collisions.readyToFallThrough) {
 					velocity.y = maxJumpVelocity;
 					playerAnimator.SetTrigger("jump");
+					AudioSource.PlayClipAtPoint(jump, transform.position);
 				}
 			}
 		}
 		if (!controller.collisions.below && !wallSliding) {
+			if (floating == false && moveSpeed == initialMoveSpeed) {
+				AudioSource.PlayClipAtPoint(drawShield, transform.position);
+			}
 			floating = true;
 		}
 	}
@@ -261,6 +292,7 @@ public class Player : MonoBehaviour {
 		shieldSlamTimer = .3f;
 		velocity.y = maxJumpVelocity * superJumpMultiplier;
 		playerAnimator.SetTrigger("jump");
+		AudioSource.PlayClipAtPoint(superJump, transform.position);
 	}
 	public void OnJumpInputUp() { //for variable jump height
 		if (velocity.y > minJumpVelocity) {
@@ -273,6 +305,12 @@ public class Player : MonoBehaviour {
 		shieldButtonDown = true;
 		moveSpeed = initialMoveSpeed * shieldSpeedModifier;
 	}
+	//public void OnShieldInputPushed() {
+	//	if (controller.collisions.below) {
+	//		audioSource.clip = drawShield;
+	//		audioSource.Play();
+	//	}
+	//}
 	public void OnShieldInputUp() {
 		shieldButtonDown = false;
 	}
@@ -342,5 +380,18 @@ public class Player : MonoBehaviour {
 	}
 	public void CallBlackMask() {
 		blackMask.MoveMask();
+	}
+
+	public void footstepSound1() {
+		AudioSource.PlayClipAtPoint(footstep1, transform.position);
+	}
+	public void footstepSound2() {
+		AudioSource.PlayClipAtPoint(footstep2, transform.position);
+	}
+	public void BlockSound() {
+		AudioSource.PlayClipAtPoint(shieldBlock, transform.position);
+	}
+	public void DeathSound() {
+		AudioSource.PlayClipAtPoint(death, transform.position);
 	}
 }
